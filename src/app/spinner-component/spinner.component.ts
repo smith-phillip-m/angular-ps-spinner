@@ -1,14 +1,16 @@
 import { Component, Input, Directive, AfterContentInit, ContentChild, ElementRef } from '@angular/core';
 
+// TODO: take in config object for loader properties
+
 // tslint:disable-next-line:directive-selector
-@Directive({ selector: '[LoadingContent]' })
+@Directive({ selector: '[aps-loading-content]' })
 export class LoadingContentDirective {
-  public element: ElementRef;
-  constructor(private elRef: ElementRef) { this.element = elRef; }
+  constructor(public elRef: ElementRef) { }
 }
 
 @Component({
-  selector: 'app-spinner-component',
+  // tslint:disable-next-line:component-selector
+  selector: 'aps-loading',
   styles: [`
     .spinner-backdrop {
       position: absolute;
@@ -25,8 +27,16 @@ export class LoadingContentDirective {
       text-align: center;
     }
 
-    .foo {
+    .animate-spin-fast {
+      animation: spin 1.5s linear infinite;
+    }
+
+    .animate-spin {
       animation: spin 2.5s linear infinite;
+    }
+
+    .animate-spin-slow {
+      animation: spin 3s linear infinite;
     }
 
     @keyframes spin {
@@ -36,11 +46,11 @@ export class LoadingContentDirective {
   `],
   template: `
     <div>
-      <div *ngIf="isSpinning" (window:resize)="onResize($event)">
+      <div *ngIf="isLoading" (window:resize)="onResize($event)">
         <div class="spinner-backdrop" [ngStyle]="spinnerBackdropStyle">
           <div class="spinner-container">
             <div class="spinner" [ngStyle]="spinnerStyle">
-              <span class="glyphicon glyphicon-star foo" aria-hidden="true"></span>
+              <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
             </div>
           </div>
         </div>
@@ -51,7 +61,7 @@ export class LoadingContentDirective {
 })
 export class SpinnerComponent implements AfterContentInit {
   @ContentChild(LoadingContentDirective) content: LoadingContentDirective;
-  @Input() isSpinning: boolean;
+  @Input() isLoading: boolean;
   @Input() bgColor: string;
   @Input() color: string;
   @Input() size: number;
@@ -64,11 +74,10 @@ export class SpinnerComponent implements AfterContentInit {
   private padding: number;
 
   public ngAfterContentInit() {
-    this.isSpinning = false;
+    this.isLoading = false;
     this.bgColor = 'rgba(0,0,0,0.7)';
     this.color = 'rgba(255,255,255,1)';
     this.setStyling();
-    console.log(this.content.element)
   }
 
   public onResize(event: Event) {
@@ -76,8 +85,8 @@ export class SpinnerComponent implements AfterContentInit {
   }
 
   private setStyling() {
-    this.height = this.content.element.nativeElement.offsetHeight;
-    this.width = this.content.element.nativeElement.offsetWidth;
+    this.height = this.content.elRef.nativeElement.offsetHeight;
+    this.width = this.content.elRef.nativeElement.offsetWidth;
 
     this.size = (this.height > this.width ? this.width : this.height) * 0.4;
     this.padding = this.size * 0.3;

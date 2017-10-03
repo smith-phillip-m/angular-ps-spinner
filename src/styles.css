@@ -1,4 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
-.margin {
-  margin: 4rem 0;
+.margin-h {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.margin-v {
+  margin-left: 1rem;
+  margin-right: 1rem
 }

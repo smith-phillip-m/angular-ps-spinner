@@ -2,16 +2,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { SpinnerComponent, LoadingContentDirective } from './spinner-component/spinner.component';
+
+import { BootstrapV3Module } from './examples/bootstrap-v3/bootstrap-v3.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SpinnerComponent,
-    LoadingContentDirective
 ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    BootstrapV3Module
   ],
   providers: [],
   bootstrap: [AppComponent]
