@@ -1,4 +1,4 @@
-import { Component, Input, Directive, AfterContentInit, ContentChild, ElementRef } from '@angular/core';
+import { Component, Input, Directive, AfterContentInit, ContentChild, ElementRef, AfterContentChecked } from '@angular/core';
 
 // TODO: take in config object for loader properties
 
@@ -59,7 +59,7 @@ export class LoadingContentDirective {
     </div>
   `
 })
-export class SpinnerComponent implements AfterContentInit {
+export class SpinnerComponent implements AfterContentInit, AfterContentChecked {
   @ContentChild(LoadingContentDirective) content: LoadingContentDirective;
   @Input() isLoading: boolean;
   @Input() bgColor: string;
@@ -77,6 +77,10 @@ export class SpinnerComponent implements AfterContentInit {
     this.isLoading = false;
     this.bgColor = 'rgba(0,0,0,0.7)';
     this.color = 'rgba(255,255,255,1)';
+    this.setStyling();
+  }
+
+  public ngAfterContentChecked() {
     this.setStyling();
   }
 
