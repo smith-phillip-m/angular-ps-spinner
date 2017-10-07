@@ -1,83 +1,62 @@
-import { Component, Input, Directive, AfterContentInit, ContentChild, ElementRef, AfterContentChecked } from '@angular/core';
+import { AfterContentChecked, Component, ContentChild, Directive, ElementRef, Input } from '@angular/core';
 
-// TODO: take in config object for loader properties
+export interface LoaderConfig {
+  loaderBgColor?: string;
+  loaderColor?: string;
+  loaderSize?: number;
+}
 
 // tslint:disable-next-line:directive-selector
-@Directive({ selector: '[aps-loading-content]' })
+@Directive({ selector: '[aps-loader-content]' })
 export class LoadingContentDirective {
   constructor(public elRef: ElementRef) { }
 }
 
 @Component({
   // tslint:disable-next-line:component-selector
-  selector: 'aps-loading',
+  selector: 'aps-loader',
   styles: [`
-    .spinner-backdrop {
+    .loader-backdrop {
       position: absolute;
       z-index: 1000;
       display: table;
     }
 
-    .spinner-container {
+    .loader-container {
       display: table-cell;
       vertical-align: middle;
     }
 
-    .spinner {
+    .loader {
       text-align: center;
-    }
-
-    .animate-spin-fast {
-      animation: spin 1.5s linear infinite;
-    }
-
-    .animate-spin {
-      animation: spin 2.5s linear infinite;
-    }
-
-    .animate-spin-slow {
-      animation: spin 3s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
     }
   `],
   template: `
-    <div>
-      <div *ngIf="isLoading" (window:resize)="onResize($event)">
-        <div class="spinner-backdrop" [ngStyle]="spinnerBackdropStyle">
-          <div class="spinner-container">
-            <div class="spinner" [ngStyle]="spinnerStyle">
-              <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
-            </div>
+    <span>
+      <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
+        <div class="loader-container">
+          <div class="loader" [ngStyle]="loaderStyle">
+            <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
           </div>
         </div>
       </div>
       <ng-content></ng-content>
-    </div>
+    </span>
   `
 })
-export class SpinnerComponent implements AfterContentInit, AfterContentChecked {
+export class SpinnerComponent implements AfterContentChecked {
   @ContentChild(LoadingContentDirective) content: LoadingContentDirective;
   @Input() isLoading: boolean;
-  @Input() bgColor: string;
-  @Input() color: string;
-  @Input() size: number;
+  @Input() loaderConfig: LoaderConfig;
 
-  public spinnerBackdropStyle: any;
-  public spinnerStyle: any;
+  public loaderBackdropPosition: any;
+  public loaderBackdropStyle: any;
+  public loaderPosition: any;
+  public loaderStyle: any;
 
-  private height: number;
-  private width: number;
-  private padding: number;
-
-  public ngAfterContentInit() {
+  constructor() {
     this.isLoading = false;
-    this.bgColor = 'rgba(0,0,0,0.7)';
-    this.color = 'rgba(255,255,255,1)';
-    this.setStyling();
+    this.loaderConfig = {};
   }
 
   public ngAfterContentChecked() {
@@ -89,22 +68,30 @@ export class SpinnerComponent implements AfterContentInit, AfterContentChecked {
   }
 
   private setStyling() {
-    this.height = this.content.elRef.nativeElement.offsetHeight;
-    this.width = this.content.elRef.nativeElement.offsetWidth;
+    const height = this.content.elRef.nativeElement.offsetHeight;
+    const width = this.content.elRef.nativeElement.offsetWidth;
 
-    this.size = (this.height > this.width ? this.width : this.height) * 0.4;
-    this.padding = this.size * 0.3;
+    const top = this.content.elRef.nativeElement.offsetTop;
+    const left = this.content.elRef.nativeElement.offsetLeft;
 
-    this.spinnerBackdropStyle = {
-      'height.px': this.height,
-      'width.px': this.width,
-      'background-color': this.bgColor
+    const size = (height > width ? width : height) * 0.4;
+    const padding = size * 0.3;
+
+    const bgColor = 'rgba(0,0,0,0.7)';
+    const color = 'rgba(255,255,255,1)';
+
+    this.loaderBackdropStyle = {
+      'background-color': this.loaderConfig.loaderBgColor ? this.loaderConfig.loaderBgColor : bgColor,
+      'height.px': height,
+      'width.px': width,
+      'top.px': top,
+      'left.px': left,
     };
 
-    this.spinnerStyle = {
-      'font-size.px': this.size,
-      'color': this.color,
-      'padding-top.px': this.padding
+    this.loaderStyle = {
+      'font-size.px': this.loaderConfig.loaderSize ? this.loaderConfig.loaderColor : size,
+      'color': this.loaderConfig.loaderColor ? this.loaderConfig.loaderColor : color,
+      'padding-top.px': padding
     };
   }
 }

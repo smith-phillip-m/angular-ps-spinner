@@ -1,10 +1,83 @@
 /* You can add global styles to this file, and also import other style files */
-.margin-h {
+.annie {
+  font-family: 'Annie Use Your Telescope', serif;
+}
+
+.patrick {
+  font-family: 'Patrick Hand SC', serif;
+}
+
+.text-xxs {
+  font-size: 8px;
+}
+
+.text-xs {
+  font-size: 10px;
+}
+
+.text-sm {
+  font-size: 12px;
+}
+
+.text-md {
+  font-size: 14px;
+}
+
+.text-lg {
+  font-size: 18px;
+}
+
+.text-xl {
+  font-size: 22px;
+}
+
+.text-2x {
+  font-size: 26px;
+}
+
+.text-3x {
+  font-size: 30px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.italics {
+  font-style: italic;
+}
+
+.oblique {
+  font-style: oblique;
+}
+
+.margin-v {
   margin-top: 4rem;
   margin-bottom: 4rem;
 }
 
-.margin-v {
+.margin-h {
   margin-left: 1rem;
   margin-right: 1rem
+}
+
+.animate-spin-fast {
+  animation: spin 1.5s linear infinite;
+}
+
+.animate-spin {
+  animation: spin 2.5s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
