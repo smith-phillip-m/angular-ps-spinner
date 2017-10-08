@@ -19,7 +19,7 @@ import { Component, Input } from '@angular/core';
       <button class="btn btn-warning btn-lg" aps-loader-content=""> LG Button </button>
     </aps-loader>
 
-    <div class="margin-h">
+    <div class="margin-v">
       <aps-loader [isLoading]="isLoading">
         <button class="btn btn-danger btn-block" aps-loader-content=""> Block Button </button>
       </aps-loader>

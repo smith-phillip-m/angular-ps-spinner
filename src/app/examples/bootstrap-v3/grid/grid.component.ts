@@ -10,7 +10,7 @@ import { Component, Input } from '@angular/core';
   `],
   template: `
     <div class="container">
-      <div class="row margin-h">
+      <div class="row margin-v">
         <aps-loader [isLoading]="isLoading">
           <div class="col-md-4 bg-danger text-center demo" aps-loader-content> Column 1 </div>
         </aps-loader>
@@ -22,14 +22,14 @@ import { Component, Input } from '@angular/core';
         </aps-loader>
       </div>
 
-      <div class="row margin-h">
+      <div class="row margin-v">
         <aps-loader [isLoading]="isLoading">
           <div class="col-md-4 col-md-offset-4 bg-info text-center demo" aps-loader-content> Column With Offset</div>
         </aps-loader>
       </div>
 
       <aps-loader [isLoading]="isLoading">
-        <div class="row margin-h" aps-loader-content>
+        <div class="row margin-v" aps-loader-content>
           <div class="col-md-4 bg-warning text-center demo"> Column 1 </div>
           <div class="col-md-4 bg-danger text-center demo"> Column 2 </div>
           <div class="col-md-4 bg-primary text-center demo"> Column 3 </div>

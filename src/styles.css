@@ -1,10 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  background-color: rgba(241,248,233,0.7)
+}
+
+blockquote {
+  background-color: rgba(204,255,144,0.2);
+  color: rgba(0,0,0,0.9);
+  box-shadow: 0 0px 25px 0 rgba(0,0,0,0.2);
+}
+
 .annie {
   font-family: 'Annie Use Your Telescope', serif;
 }
 
 .patrick {
   font-family: 'Patrick Hand SC', serif;
+}
+
+.sigmar {
+  font-family: 'Sigmar One', serif;
 }
 
 .text-xxs {
@@ -39,6 +53,14 @@
   font-size: 30px;
 }
 
+.text-4x {
+  font-size: 34px;
+}
+
+.text-5x {
+  font-size: 38px;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -63,6 +85,46 @@
 .margin-h {
   margin-left: 1rem;
   margin-right: 1rem
+}
+
+.padding-t-xxs {
+  padding-top: .25rem;
+}
+
+.padding-t-xs {
+  padding-top: .5rem;
+}
+
+.padding-t-sm {
+  padding-top: 1rem;
+}
+
+.padding-t-md {
+  padding-top: 2rem;
+}
+
+.padding-t-lg {
+  padding-top: 3rem;
+}
+
+.padding-t-xl {
+  padding-top: 4rem;
+}
+
+.padding-t-2x {
+  padding-top: 5rem;
+}
+
+.padding-t-3x {
+  padding-top: 6rem;
+}
+
+.padding-t-4x {
+  padding-top: 7rem;
+}
+
+.padding-t-5x {
+  padding-top: 8rem;
 }
 
 .animate-spin-fast {

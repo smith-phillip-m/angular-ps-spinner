@@ -12,28 +12,28 @@ import { TableComponent } from './table/table.component';
       <button class="btn btn-info btn-lg btn-block" (click)="isLoading=!isLoading"> Load Content </button>
     </div>
 
-    <blockquote>
+    <blockquote class="sigmar">
       <h3> Grid </h3>
     </blockquote>
     <div class="margin-v">
       <app-grid [isLoading]="isLoading"></app-grid>
     </div>
 
-    <blockquote>
+    <blockquote class="sigmar">
       <h3> Table </h3>
     </blockquote>
     <div class="margin-v">
       <app-table [isLoading]="isLoading"></app-table>
     </div>
 
-    <blockquote>
+    <blockquote class="sigmar">
       <h3> Button Types </h3>
     </blockquote>
     <div class="margin-v">
       <app-button-types [isLoading]="isLoading"></app-button-types>
     </div>
 
-    <blockquote>
+    <blockquote class="sigmar">
       <h3> Button Sizes </h3>
     </blockquote>
     <div class="margin-v">
