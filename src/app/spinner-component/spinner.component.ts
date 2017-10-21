@@ -8,40 +8,27 @@ export interface LoaderConfig {
 
 // tslint:disable-next-line:directive-selector
 @Directive({ selector: '[aps-loader-content]' })
-export class LoadingContentDirective {
-  constructor(public elRef: ElementRef) { }
-}
+export class LoadingContentDirective { constructor(public elRef: ElementRef) { } }
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'aps-loader',
   styles: [`
-    .loader-backdrop {
-      position: absolute;
-      z-index: 1000;
-      display: table;
-    }
+    .loader-backdrop { position: absolute; z-index: 1000; display: table; }
 
-    .loader-container {
-      display: table-cell;
-      vertical-align: middle;
-    }
+    .loader-container { display: table-cell; vertical-align: middle; }
 
-    .loader {
-      text-align: center;
-    }
+    .loader { text-align: center; }
   `],
   template: `
-    <span>
-      <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
-        <div class="loader-container">
-          <div class="loader" [ngStyle]="loaderStyle">
-            <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
-          </div>
+    <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
+      <div class="loader-container">
+        <div class="loader" [ngStyle]="loaderStyle">
+          <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
         </div>
       </div>
-      <ng-content></ng-content>
-    </span>
+    </div>
+    <ng-content></ng-content>
   `
 })
 export class SpinnerComponent implements AfterContentChecked {
@@ -59,13 +46,9 @@ export class SpinnerComponent implements AfterContentChecked {
     this.loaderConfig = {};
   }
 
-  public ngAfterContentChecked() {
-    this.setStyling();
-  }
+  public ngAfterContentChecked() { this.setStyling(); }
 
-  public onResize(event: Event) {
-    this.setStyling();
-  }
+  public onResize(event: Event) { this.setStyling(); }
 
   private setStyling() {
     const height = this.content.elRef.nativeElement.offsetHeight;

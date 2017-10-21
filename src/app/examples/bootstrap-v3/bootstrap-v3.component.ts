@@ -6,7 +6,6 @@ import { TableComponent } from './table/table.component';
   selector: 'app-bootstrap-v3',
   template: `
     <h2> Bootstrap V3 Example </h2>
-    <!-- http://getbootstrap.com/docs/3.3/ -->
 
     <div class="margin-v">
       <button class="btn btn-info btn-lg btn-block" (click)="isLoading=!isLoading"> Load Content </button>
