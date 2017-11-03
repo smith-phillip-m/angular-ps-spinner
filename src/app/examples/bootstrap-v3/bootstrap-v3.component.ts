@@ -43,7 +43,5 @@ import { TableComponent } from './table/table.component';
 export class BootstrapV3Component {
   public isLoading: boolean;
 
-  constructor() {
-    this.isLoading = false;
-  }
+  constructor() { this.isLoading = false; }
 }

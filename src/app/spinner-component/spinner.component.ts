@@ -17,15 +17,11 @@ export class LoadingContentDirective { constructor(public elRef: ElementRef) { }
     .loader-backdrop { position: absolute; z-index: 1000; display: table; }
 
     .loader-container { display: table-cell; vertical-align: middle; }
-
-    .loader { text-align: center; }
   `],
   template: `
     <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
       <div class="loader-container">
-        <div class="loader" [ngStyle]="loaderStyle">
-          <span class="glyphicon glyphicon-cog animate-spin-slow" aria-hidden="true"></span>
-        </div>
+        <app-cog [config]="loaderComponentConfig"></app-cog>
       </div>
     </div>
     <ng-content></ng-content>
@@ -36,14 +32,13 @@ export class SpinnerComponent implements AfterContentChecked {
   @Input() isLoading: boolean;
   @Input() loaderConfig: LoaderConfig;
 
-  public loaderBackdropPosition: any;
   public loaderBackdropStyle: any;
-  public loaderPosition: any;
-  public loaderStyle: any;
+  public loaderComponentConfig: any;
 
   constructor() {
     this.isLoading = false;
     this.loaderConfig = {};
+    this.loaderComponentConfig = {};
   }
 
   public ngAfterContentChecked() { this.setStyling(); }
@@ -71,10 +66,11 @@ export class SpinnerComponent implements AfterContentChecked {
       'left.px': left,
     };
 
-    this.loaderStyle = {
-      'font-size.px': this.loaderConfig.loaderSize ? this.loaderConfig.loaderColor : size,
+    this.loaderComponentConfig = {
+      'height': this.loaderConfig.loaderSize ? this.loaderConfig.loaderSize : size,
+      'width': this.loaderConfig.loaderSize ? this.loaderConfig.loaderSize : size,
       'color': this.loaderConfig.loaderColor ? this.loaderConfig.loaderColor : color,
-      'padding-top.px': padding
+      'backgroundColor': this.loaderConfig.loaderBgColor ? this.loaderConfig.loaderBgColor : bgColor
     };
   }
 }
