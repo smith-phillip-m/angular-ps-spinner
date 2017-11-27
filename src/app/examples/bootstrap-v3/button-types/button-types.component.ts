@@ -4,7 +4,7 @@ import { Component, Input } from '@angular/core';
   selector: 'app-button-types',
   template: `
     <aps-loader [isLoading]="isLoading">
-      <a href="" class="btn btn-default" role="button" aps-loader-content=""> Link </a>
+      <a href="" class="btn btn-default" role="button" aps-loader-content> Link </a>
     </aps-loader>
 
     <aps-loader [isLoading]="isLoading">
