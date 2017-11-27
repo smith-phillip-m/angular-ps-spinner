@@ -1,4 +1,4 @@
-import { AfterContentChecked, Component, ContentChild, Directive, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Directive, ElementRef, AfterContentChecked, ContentChild, Input } from '@angular/core';
 
 export interface LoaderConfig {
   loaderBgColor?: string;
@@ -8,17 +8,17 @@ export interface LoaderConfig {
 
 // tslint:disable-next-line:directive-selector
 @Directive({ selector: '[aps-loader-content]' })
-export class LoadingContentDirective { constructor(public elRef: ElementRef) { } }
+export class ApsLoaderContentDirective { constructor(public elRef: ElementRef) { } }
 
 @Component({
   // tslint:disable-next-line:component-selector
   selector: 'aps-loader',
   styles: [`
-    .loader-backdrop { position: absolute; z-index: 1000; display: table; }
+  .loader-backdrop { position: absolute; z-index: 1000; display: table; }
 
-    .loader-container { display: table-cell; vertical-align: middle; }
+  .loader-container { display: table-cell; vertical-align: middle; }
 
-    .loader { text-align: center; }
+  .loader { text-align: center; }
   `],
   template: `
     <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
@@ -31,8 +31,8 @@ export class LoadingContentDirective { constructor(public elRef: ElementRef) { }
     <ng-content></ng-content>
   `
 })
-export class SpinnerComponent implements AfterContentChecked {
-  @ContentChild(LoadingContentDirective) content: LoadingContentDirective;
+export class ApsLoaderComponent implements AfterContentChecked {
+  @ContentChild(ApsLoaderContentDirective) content: ApsLoaderContentDirective;
   @Input() isLoading: boolean;
   @Input() loaderConfig: LoaderConfig;
 
