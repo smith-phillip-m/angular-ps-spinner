@@ -1,9 +1,10 @@
 import { Component, Input } from '@angular/core';
+import { LoaderConfig } from '../../../aps-loader/_defs/loader-config';
 
 @Component({
   selector: 'app-table',
   template: `
-    <aps-loader [isLoading]="isLoading">
+    <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
       <table class="table table-striped table-hover" aps-loader-content>
         <tr>
           <th *ngFor="let header of headers"> {{ header }} </th>
@@ -17,12 +18,14 @@ import { Component, Input } from '@angular/core';
 })
 export class TableComponent {
   @Input() isLoading: boolean;
+  @Input() loaderConfig: LoaderConfig;
 
   public headers: string[];
   public contents: string[][];
 
   constructor() {
     this.isLoading = false;
+    this.loaderConfig = {};
     // tslint:disable-next-line:max-line-length
     const lorem = 'Lorem ipsum dolor sit amet consectetur adipiscing elit Etiam bibendum venenatis laoreet Proin sed vulputate urna non venenatis sapien Mauris non dapibus justo Cras sagittis venenatis ex vel facilisis orci blandit in Proin lobortis risus eu mi egestas eleifend Suspendisse pretium justo vitae eros placerat vulputate et eu enim Aenean lacinia tellus sapien nec pharetra';
     const loremSplit: string[] = lorem.split(' ');

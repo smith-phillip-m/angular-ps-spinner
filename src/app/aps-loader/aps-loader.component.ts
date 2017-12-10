@@ -1,10 +1,6 @@
 import { Component, OnInit, Directive, ElementRef, AfterContentChecked, ContentChild, Input } from '@angular/core';
-
-export interface LoaderConfig {
-  loaderBgColor?: string;
-  loaderColor?: string;
-  loaderSize?: number;
-}
+import { LoaderConfig } from './_defs/loader-config';
+import { LoaderTypeEnum } from './_defs/loader-type';
 
 // tslint:disable-next-line:directive-selector
 @Directive({ selector: '[aps-loader-content]' })
@@ -15,13 +11,13 @@ export class ApsLoaderContentDirective { constructor(public elRef: ElementRef) {
   selector: 'aps-loader',
   styles: [`
     .loader-backdrop { position: absolute; z-index: 1000; display: table; }
-
     .loader-container { display: table-cell; vertical-align: middle; }
   `],
   template: `
     <div class="loader-backdrop" *ngIf="isLoading" (window:resize)="onResize($event)" [ngStyle]="loaderBackdropStyle">
-      <div class="loader-container">
-        <app-cog [config]="loaderComponentConfig"></app-cog>
+      <div class="loader-container" [ngSwitch]="loaderConfig.loaderType" [ngStyle]="loaderContainerStyle">
+        <aps-cog *ngSwitchCase="loaderType.COG" [loaderConfig]="loaderConfig"></aps-cog>
+        <div *ngSwitchDefault> No loader selected... </div>
       </div>
     </div>
     <ng-content></ng-content>
@@ -33,12 +29,13 @@ export class ApsLoaderComponent implements AfterContentChecked {
   @Input() loaderConfig: LoaderConfig;
 
   public loaderBackdropStyle: any;
-  public loaderComponentConfig: any;
+  public loaderContainerStyle: any;
+  public loaderType: {};
 
   constructor() {
     this.isLoading = false;
     this.loaderConfig = {};
-    this.loaderComponentConfig = {};
+    this.loaderType = LoaderTypeEnum;
   }
 
   public ngAfterContentChecked() { this.setStyling(); }
@@ -52,25 +49,19 @@ export class ApsLoaderComponent implements AfterContentChecked {
     const top = this.content.elRef.nativeElement.offsetTop;
     const left = this.content.elRef.nativeElement.offsetLeft;
 
-    const size = (height > width ? width : height) * 0.4;
-    const padding = size * 0.3;
-
-    const bgColor = 'rgba(0,0,0,0.7)';
-    const color = 'rgba(255,255,255,1)';
-
     this.loaderBackdropStyle = {
-      'background-color': this.loaderConfig.loaderBgColor ? this.loaderConfig.loaderBgColor : bgColor,
+      'background-color': this.loaderConfig.loaderBgColor,
       'height.px': height,
       'width.px': width,
       'top.px': top,
       'left.px': left,
     };
 
-    this.loaderComponentConfig = {
-      'height': this.loaderConfig.loaderSize ? this.loaderConfig.loaderSize : size,
-      'width': this.loaderConfig.loaderSize ? this.loaderConfig.loaderSize : size,
-      'color': this.loaderConfig.loaderColor ? this.loaderConfig.loaderColor : color,
-      'backgroundColor': this.loaderConfig.loaderBgColor ? this.loaderConfig.loaderBgColor : bgColor
+    const size = (height > width ? width : height) * 0.4;
+
+    this.loaderContainerStyle = {
+      'height.px': size,
+      'width.px': size
     };
   }
 }

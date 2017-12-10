@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { LoaderConfig } from '../../../aps-loader/_defs/loader-config';
 
 @Component({
   selector: 'app-grid',
@@ -11,24 +12,24 @@ import { Component, Input } from '@angular/core';
   template: `
     <div class="container">
       <div class="row margin-v">
-        <aps-loader [isLoading]="isLoading">
+        <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
           <div class="col-md-4 bg-danger text-center demo" aps-loader-content> Column 1 </div>
         </aps-loader>
-        <aps-loader [isLoading]="isLoading">
+        <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
           <div class="col-md-4 bg-warning text-center demo" aps-loader-content> Column 2 </div>
         </aps-loader>
-        <aps-loader [isLoading]="isLoading">
+        <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
           <div class="col-md-4 bg-primary text-center demo" aps-loader-content> Column 3 </div>
         </aps-loader>
       </div>
 
       <div class="row margin-v">
-        <aps-loader [isLoading]="isLoading">
+        <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
           <div class="col-md-4 col-md-offset-4 bg-info text-center demo" aps-loader-content> Column With Offset</div>
         </aps-loader>
       </div>
 
-      <aps-loader [isLoading]="isLoading">
+      <aps-loader [isLoading]="isLoading" [loaderConfig]="loaderConfig">
         <div class="row margin-v" aps-loader-content>
           <div class="col-md-4 bg-warning text-center demo"> Column 1 </div>
           <div class="col-md-4 bg-danger text-center demo"> Column 2 </div>
@@ -40,8 +41,10 @@ import { Component, Input } from '@angular/core';
 })
 export class GridComponent {
   @Input() isLoading: boolean;
+  @Input() loaderConfig: LoaderConfig;
 
   constructor() {
     this.isLoading = false;
+    this.loaderConfig = {};
   }
 }
